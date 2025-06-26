@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>고객센터 - 공지사항</title>
+    <link rel="stylesheet" th:href="@{/css/notice.css}">
+</head>
+<body>
+<div class="container">
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="logo">경매마당</div>
+        <nav class="nav">
+            <div class="nav-icon-item">
+                <a href="/" th:href="@{/}"><img src="/images/home.svg" alt="home" width="30px" /></a>
+            </div>
+            <div class="nav-item"><a href="/api/product/productList" th:href="@{/api/product/productList}">상품목록</a></div>
+            <div class="nav-item"><a href="/gosell" th:href="@{/api/product/createProduct}">판매하기</a></div>
+            <div class="nav-item"><a href="/mypage" th:href="@{/api/user/myPage}">마이페이지</a></div>
+            <div class="nav-item"><a href="/customercenter" th:href="@{/api/customer/notice}">고객센터</a></div>
+        </nav>
+        <div class="btn-wrap">
+            <div class="search-btn" onclick="openSearch()">
+                <img src="/images/search.svg" alt="search" width="30px" />
+            </div>
+            <div id="searchModal" class="search-modal hidden">
+                <div class="modal-box">
+                    <div class="modal-topbar">
+                        <div></div>
+                        <button class="modal-cancel" onclick="closeSearch()">취소</button>
+                    </div>
+
+                    <input type="text" class="search-input" placeholder="브랜드, 상품, 프로필 등" />
+
+                    <h3 class="section-title">추천 검색어</h3>
+                    <div class="keyword-wrap">
+                        <button class="keyword">뉴발란스</button>
+                        <button class="keyword">워터밤</button>
+                        <button class="keyword">일렉기타</button>
+                        <button class="keyword">아디다스</button>
+                        <button class="keyword">샌들</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 로그인 상태일 때 -->
+            <button th:if="${isLoggedIn}" class="login-btn" onclick="location.href='/api/user/logout'">로그아웃</button>
+
+            <!-- 비로그인 상태일 때 -->
+            <button th:unless="${isLoggedIn}" class="login-btn" onclick="location.href='/api/user/login'">로그인</button>
+
+        </div>
+    </header>
+    <div class="center-content">
+        <aside class="sidebar">
+            <h2>고객센터</h2>
+            <ul>
+                <li class="active">공지사항</li>
+                <li>자주 묻는 질문</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <h1>공지사항</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="검색" />
+                <button class="search-btn2">
+                    <img src="/images/search.svg" alt="search" width="30px" />
+                </button>
+            </div>
+
+            <div class="category-tabs">
+                <button class="tab active">전체</button>
+                <button class="tab">공지</button>
+                <button class="tab">이벤트</button>
+                <button class="tab">서비스 안내</button>
+            </div>
+
+            <ul class="notice-list">
+                <li><span class="tag">공지</span> 개인정보처리방침 변경 안내</li>
+                <li><span class="tag">이벤트</span> 삼성카드 구매 이벤트</li>
+                <li><span class="tag">서비스 안내</span> 관심 상품 보관기간 변경 안내</li>
+                <li><span class="tag">공지</span> 서비스 업데이트 (2025.04.28)</li>
+                <li><span class="tag">공지</span> 개인정보처리방침 변경 안내</li>
+            </ul>
+        </main>
+    </div>
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-wrapper">
+            <div class="footer-top">
+                <div class="column">
+                    <h4>이용안내</h4>
+                    <ul>
+                        <li>이용정책</li>
+                        <li>패널티 정책</li>
+                        <li>가이드 라인</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li>공지사항</li>
+                        <li>서비스 소개</li>
+                        <li>스토어 안내</li>
+                    </ul>
+                </div>
+                <div class="column last">
+                    <h4>고객센터 <strong>1588-0000</strong></h4>
+                    <p>운영시간 평일 10:00 - 18:00 (토,일,공휴일 휴무)</p>
+                    <p>점심시간 평일 13:00-14:00</p>
+                    <p>1:1 문의하기는 온라인에서만 가능합니다</p>
+                    <button>자주 묻는 질문</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="left">
+                    <p>
+                        경매마당 대표 : 동덕여자대학교 우당탕탕<br />
+                        사업자 : 박슬기, 한지혜, 조혜린<br />
+                        대표 연락처 : 20221881@dongduk.ac.kr<br />
+                        사업장소재지 : 서울특별시 성북구 화랑로13길 60
+                    </p>
+                </div>
+                <div class="right">
+                    <div class="footer-icons">
+                        <img src="/images/insta.svg" alt="인스타">
+                        <img src="/images/face.svg" alt="페이스북">
+                        <img src="/images/kakao.svg" alt="카카오">
+                    </div>
+                    <p>ⓒ 우당탕조</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="/js/main.js"></script>
+</body>
+</html>

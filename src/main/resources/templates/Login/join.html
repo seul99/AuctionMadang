@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>회원가입</title>
+    <link rel="stylesheet" th:href="@{/css/join.css}" />
+</head>
+<body>
+<div class="join-container">
+    <h1>회원가입</h1>
+    <form th:action="@{/api/user/join}" method="post" class="join-form">
+
+        <div class="form-group with-button">
+            <label for="nickname">닉네임 *</label>
+            <input type="text" id="nickname" name="nickname" placeholder="사용할 닉네임을 입력해주세요" required />
+            <button type="button">중복확인</button>
+        </div>
+
+        <div class="form-group with-button">
+            <label for="userId">아이디 *</label>
+            <input type="text" id="userId" name="userId" placeholder="예) 영문자, 숫자 조합" required />
+            <button type="button">중복확인</button>
+        </div>
+
+        <div class="form-group">
+            <label for="password">비밀번호 *</label>
+            <input type="password" id="password" name="password" placeholder="영문자, 숫자, 특수문자 조합 8~16자" required />
+        </div>
+
+        <div class="form-group">
+            <label for="address">주소</label>
+            <input type="text" id="address" name="address" placeholder="배송받을 주소를 입력하세요" />
+        </div>
+
+        <div class="form-group">
+            <label for="category">관심 카테고리</label>
+            <select id="category" name="category">
+                <option>선택하세요</option>
+                <option>디지털 기기</option>
+                <option>가구/인테리어</option>
+                <option>유아동 물품</option>
+                <option>여성의류</option>
+                <option>여성잡화</option>
+                <option>남성패션/잡화</option>
+                <option>생활가전</option>
+                <option>취미/게임/음반</option>
+                <option>뷰티/미용</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" placeholder="예) madang@dongduk.ac.kr" />
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">전화번호</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="010-0000-0000" />
+        </div>
+
+        <div class="form-group">
+            <label for="bank">은행 선택 *</label>
+            <select id="bank" name="bank" required>
+                <option value="" disabled selected hidden>은행선택</option>
+                <option value="신한은행">신한은행</option>
+                <option value="국민은행">국민은행</option>
+                <option value="농협은행">농협은행</option>
+                <option value="신협은행">신협은행</option>
+                <option value="카카오뱅크">카카오뱅크</option>
+                <option value="IBK기업은행">IBK기업은행</option>
+                <option value="우리은행">우리은행</option>
+            </select>
+            <input type="text" id="accountNo" name="accountNo" placeholder="정산받을 계좌번호 입력" required/>
+        </div>
+
+        <div class="form-group agree-box">
+            <label><input type="checkbox" required /> 모두 동의합니다</label>
+        </div>
+
+        <button type="submit" class="submit-btn">본인 인증하고 가입하기</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userIdInput = document.querySelector('#userId');
+        const nicknameInput = document.querySelector('#nickname');
+        const userIdCheckBtn = userIdInput.nextElementSibling;
+        const nicknameCheckBtn = nicknameInput.nextElementSibling;
+        const form = document.querySelector('.join-form');
+
+        let isUserIdValid = false;
+        let isNicknameValid = false;
+
+        // 아이디 중복 확인
+        userIdCheckBtn.addEventListener('click', async () => {
+            const userId = userIdInput.value.trim();
+            if (!userId) {
+                alert('아이디를 입력해주세요.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/user/check-id?userId=${encodeURIComponent(userId)}`);
+                const data = await response.json();
+
+                if (data.exists) {
+                    alert('이미 존재하는 아이디입니다. 다른 아이디를 입력 해 주세요.');
+                    isUserIdValid = false;
+                } else {
+                    alert('사용 가능한 아이디입니다.');
+                    isUserIdValid = true;
+                }
+            } catch (error) {
+                console.error('오류 발생:', error);
+                alert('중복 확인 중 오류가 발생했습니다.');
+                isUserIdValid = false;
+            }
+        });
+
+        // 닉네임 중복 확인
+        nicknameCheckBtn.addEventListener('click', async () => {
+            const nickname = nicknameInput.value.trim();
+            if (!nickname) {
+                alert('닉네임을 입력해주세요.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/user/check-nickname?nickname=${encodeURIComponent(nickname)}`);
+                const data = await response.json();
+
+                if (data.exists) {
+                    alert('이미 존재하는 닉네임입니다. 다른 닉네임을 입력 해 주세요.');
+                    isNicknameValid = false;
+                } else {
+                    alert('사용 가능한 닉네임입니다.');
+                    isNicknameValid = true;
+                }
+            } catch (error) {
+                console.error('오류 발생:', error);
+                alert('중복 확인 중 오류가 발생했습니다.');
+                isNicknameValid = false;
+            }
+        });
+
+        // 제출 시 중복 확인 여부 검증
+        form.addEventListener('submit', (e) => {
+            if (!isUserIdValid || !isNicknameValid) {
+                e.preventDefault();
+                alert('닉네임이나 아이디가 중복되었습니다. 다시 확인 해 주세요.');
+            }
+        });
+
+        // 회원가입 성공 시 알림 및 로그인 페이지로 이동
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            alert('축하합니다! 회원가입이 완료 되었습니다!');
+            window.location.href = '/api/user/login';
+        }
+    });
+</script>
+</body>
+</html>

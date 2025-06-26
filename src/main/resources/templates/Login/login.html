@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>경매마당 - 로그인</title>
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+<div class="login-wrapper">
+    <h2 onclick="location.href='/'">경매마당</h2>
+
+    <form th:action="@{/api/user/login}" method="post">
+        <div class="login-section">
+            <label for="id">아이디</label><br />
+            <input type="text" name="id" placeholder="abc@gmail.com" required /><br />
+            <label for="password">비밀번호</label><br />
+            <input type="password" name="password" placeholder="비밀번호" required />
+        </div>
+
+        <button type="submit" class="login-btn">로그인</button>
+    </form>
+
+    <div class="goto-join">
+        <ul>
+            <li><a th:href="@{/api/user/join}">이메일 가입</a></li>
+            <li>이메일 찾기</li>
+            <li>비밀번호 찾기</li>
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>

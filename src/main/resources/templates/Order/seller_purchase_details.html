@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>거래 확인</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f9f9f9;
+            padding: 30px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .highlight {
+            font-size: 20px;
+            color: #f28b82;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .info-box {
+            margin-top: 20px;
+        }
+        .info-box label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .info-box input {
+            width: 100%;
+            padding: 10px;
+            background: #eee;
+            border: none;
+            border-radius: 5px;
+        }
+        .footer-note {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #666;
+        }
+        .confirm-btn {
+            margin-top: 20px;
+            width: 100%;
+            background: #f28b82;
+            color: white;
+            font-size: 18px;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .confirm-btn:hover {
+            background: #c4001f;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>거래 확인</h2>
+
+    <p class="product-name" th:text="${dto.productName}">상품명</p>
+
+
+    <p class="highlight">
+        판매가 : <span th:text="${#numbers.formatInteger(dto.price, 3, 'COMMA')} + ' 원'">0원</span>
+    </p>
+
+    <p class="section-title">구매자 정보</p>
+    <div class="info-box">
+        <label>이름</label>
+        <input type="text" th:value="${dto.name}" readonly />
+
+        <label>주소</label>
+        <input type="text" th:value="${dto.zipcode}" readonly />
+        <input type="text" th:value="${dto.address}" readonly />
+        <input type="text" th:value="${dto.addressDetail}" readonly />
+
+        <label>휴대전화</label>
+        <input type="text" th:value="${dto.phone}" readonly />
+
+        <label>이메일</label>
+        <input type="text" th:value="${dto.email}" readonly />
+
+        <label>최종 결제 금액</label>
+        <input type="text" th:value="${#numbers.formatInteger(dto.price + 4000, 3, 'COMMA')} + ' 원'" readonly />
+
+        <label>배송비</label>
+        <input type="text" value="4,000 원" readonly />
+    </div>
+
+
+    <a th:href="@{/api/user/{id}/salesList(id=${user.userId})}">
+        <button class="confirm-btn">확인</button>
+    </a>
+
+    <p class="footer-note">거래 확정 후 7일 이내에 택배 전송 후 운송장 번호를 입력해주세요.</p>
+</div>
+</body>
+</html>
