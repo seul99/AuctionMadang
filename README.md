@@ -1,9 +1,17 @@
-# AuctionMadang
+## AuctionMadang
 소프트웨어시스템개발 강의 중 경매쇼핑몰 프로젝트 진행한 결과물 입니다.
-
-# 담당
-- 프론트앤드 전반적인 부분
-- 화면 UI 구성
-- 도메인 클래스 정의
-- UML 작성
-  ![image](https://github.com/user-attachments/assets/9a4cf99f-e08a-46cf-9cd2-bf487d3cf16f)
+  <br>  <br>  <br>
+## 시스템 개요 및 특징
+경매마당은 사용자가 중고 물품을 등록하고 거래할 수 있는 웹 기반 플랫폼입니다. 초기에는 경매 방식을 도입하려 했으나, 최종적으로는 단순한 중고거래 방식으로 변경하였습니다. 사용자는 상품 등록, 구매, 마이페이지를 통한 거래 내역 확인 등을 웹에서 간편하게 수행할 수 있으며, 관리자 페이지를 통해 등록된 상품을 관리할 수 있도록 구현하였습니다. 주요 특징으로는 마이페이지 기능(구매/판매/등록 내역 조회), 상품 등록 및 관리 기능 등이 있습니다.
+  <br>  <br>  <br>
+## 사용 기술
+- Database : MySQL <br>
+- Backend :  Spring Boot, Spring Data JPA, Spring Security  <br>
+- Frontend : Thymeleaf, JavaScript, Html, Css <br>
+  <br>  <br>  <br>
+## 주요기능
+- 로그인 <br>
+- 회원가입 <br>
+- 상품등록 및 조회 <br>
+- 상품 구매하기 <br>
+- 마이페이지 : 프로필 수정, 로그인정보 수정, 구매 및 판매정보 확인  <br>
