@@ -15,3 +15,6 @@
 - 상품등록 및 조회 <br>
 - 상품 구매하기 <br>
 - 마이페이지 : 프로필 수정, 로그인정보 수정, 구매 및 판매정보 확인  <br>
+
+## 발표 및 시연영상 보러가기
+https://drive.google.com/drive/folders/1knrLLstM8Q7HnSjPWHtvm1H9IuTwQ_9O?usp=drive_link
